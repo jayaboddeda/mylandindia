@@ -896,6 +896,14 @@ fetch('navbar.html')
     })
     .catch(error => console.error('Error loading navbar:', error));
 
+// Load contact info
+fetch('contact-info.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('contact-info-container').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading contact info:', error));
+
 // Load footer
 fetch('footer.html')
     .then(response => response.text())
