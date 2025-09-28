@@ -1,3 +1,28 @@
+// Load navbar
+fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('navbar-container').innerHTML = data;
+        // Initialize mobile menu after navbar is loaded
+        jQuery(".th-menu-wrapper").thmobilemenu();
+    })
+    .catch(error => console.error('Error loading navbar:', error));
+
+// Load contact info
+fetch('contact-info.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('contact-info-container').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading contact info:', error));
+
+// Load footer
+fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading footer:', error));
 !(function (e) {
   "use strict";
   function t(t) {
@@ -91,7 +116,6 @@
           });
       });
     }),
-    e(".th-menu-wrapper").thmobilemenu(),
     t(".onepage-nav"),
     t(".scroll-down"),
     e(window).scroll(function () {
@@ -887,27 +911,3 @@
 //       );
 //     });
 })(jQuery);
-
-// Load navbar
-fetch('navbar.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-    })
-    .catch(error => console.error('Error loading navbar:', error));
-
-// Load contact info
-fetch('contact-info.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('contact-info-container').innerHTML = data;
-    })
-    .catch(error => console.error('Error loading contact info:', error));
-
-// Load footer
-fetch('footer.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('footer-container').innerHTML = data;
-    })
-    .catch(error => console.error('Error loading footer:', error));
