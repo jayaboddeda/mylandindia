@@ -9,7 +9,7 @@
   --smoke-color2: #f2f3f5;
   --smoke-color3: #fff5eb;
   --black-color: #000000;
-  --black-color2: #171717;
+  --black-color2: #14264f;
   --gray-color: #333333;
   --th-border-color: #b3b3b3;
   --th-border-color2: #d4d4d4;
@@ -17719,7 +17719,7 @@ span.select2-selection.select2-selection--single:focus {
   flex-wrap: wrap;
 }
 .about-experience-wrap .box-number {
-  font-size: 290px;
+  font-size: 225px;
   font-weight: 700;
   font-family: var(--title-font);
   -webkit-background-clip: text;
@@ -17732,7 +17732,7 @@ span.select2-selection.select2-selection--single:focus {
 }
 @media (max-width: 1399px) {
   .about-experience-wrap .box-number {
-    font-size: 250px;
+    font-size: 200px;
   }
 }
 @media (max-width: 1299px) {
@@ -21174,7 +21174,6 @@ span.select2-selection.select2-selection--single:focus {
 .service-card.style2 .service-card-icon {
   width: 96px;
   height: 96px;
-  line-height: 93px;
   border-radius: 50%;
   border: 1px solid var(--title-color);
   text-align: center;
@@ -21221,8 +21220,8 @@ span.select2-selection.select2-selection--single:focus {
 .service-card.style2:hover .service-card-icon img {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
-  -webkit-filter: brightness(99) invert(0);
-  filter: brightness(99) invert(0);
+  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 .service-card.style2:hover .service-img img {
   -webkit-transform: scale(1.05);
@@ -21757,7 +21756,7 @@ span.select2-selection.select2-selection--single:focus {
   }
 }
 .process-card2 {
-  background: var(--gray-color);
+  background: #1b1448;
   padding: 40px 30px;
   border-radius: 16px;
   overflow: hidden;
