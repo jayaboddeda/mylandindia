@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Outfit:wght@100..900&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
@@ -55,18 +55,32 @@
                             class="appointment-form ajax-contact">
                             <div class="row">
                                 <div class="form-group style-border2 style-radius col-md-12"><input type="text"
-                                        class="form-control" name="name" id="name" placeholder="Your Name*"> <i
+                                        class="form-control" name="full_name" id="full_name" placeholder="Full Name*"> <i
                                         class="fal fa-user"></i></div>
+                                <div class="form-group style-border2 style-radius col-md-6"><input type="tel"
+                                        class="form-control" name="phone" id="phone" placeholder="Phone Number / WhatsApp*"> <i
+                                        class="fal fa-phone"></i></div>
                                 <div class="form-group style-border2 style-radius col-md-6"><input type="email"
-                                        class="form-control" name="email" id="email" placeholder="Your Email*"> <i
+                                        class="form-control" name="email" id="email" placeholder="Email ID*"> <i
                                         class="fal fa-envelope"></i></div>
-                                
-                            <div class="form-group style-border2 style-radius col-md-6"><input type="tel" class="form-control"
-                                    name="phone" id="phone" placeholder="Your Phone*"> <i class="fal fa-phone"></i></div>
-                              
-                                <div class="col-12 form-group style-border2 style-radius"><i
-                                        class="far fa-comments"></i> <textarea placeholder="Type Your Message"
-                                        class="form-control"></textarea></div>
+                                <div class="form-group style-border2 style-radius col-md-6"><input type="text"
+                                        class="form-control" name="profession" id="profession" placeholder="Profession*"> <i
+                                        class="fal fa-briefcase"></i></div>
+                                <div class="form-group style-border2 style-radius col-md-6"><input type="text"
+                                        class="form-control" name="city" id="city" placeholder="City / Location*"> <i
+                                        class="fal fa-map-marker-alt"></i></div>
+                                <div class="form-group style-border2 style-radius col-md-12"><select
+                                        class="form-control" name="investment_range" id="investment_range"><option value="">Preferred Investment Range*</option><option value="50L-1Cr">₹50L – ₹1 Cr</option><option value="1Cr-2Cr">₹1 Cr – ₹2 Cr</option><option value="2Cr-5Cr">₹2 Cr – ₹5 Cr</option><option value="5Cr+">₹5 Cr+</option></select> <i
+                                        class="fal fa-money-bill-wave"></i></div>
+                                <div class="form-group style-border2 style-radius col-md-12"><select
+                                        class="form-control" name="investment_preference" id="investment_preference"><option value="">Investment Preference*</option><option value="long-term">Long-term hold for appreciation</option><option value="short-term">Short-term flip for profit</option><option value="fixed-returns">Fixed assured returns</option></select> <i
+                                        class="fal fa-chart-line"></i></div>
+                                <div class="form-group style-border2 style-radius col-md-6"><select
+                                        class="form-control" name="invested_before" id="invested_before"><option value="">Have you invested in land before?*</option><option value="yes">Yes</option><option value="no">No</option></select> <i
+                                        class="fal fa-question-circle"></i></div>
+                                <div class="form-group style-border2 style-radius col-md-6"><input type="text"
+                                        class="form-control" name="referral" id="referral" placeholder="Referral (if any)"> <i
+                                        class="fal fa-user-friends"></i></div>
                                 <div class="col-12 form-btn"><button class="th-btn style4">Submit Message <span
                                             class="btn-icon"><img src="assets/img/icon/paper-plane.svg"
                                                 alt="img"></span></button></div>
