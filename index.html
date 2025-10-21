@@ -673,8 +673,8 @@
                                     name="profession" id="profession" placeholder="Profession*" required> <i class="fal fa-briefcase"></i></div>
                             <div class="form-group style-border5 col-md-6"><input type="text" class="form-control"
                                     name="city" id="city" placeholder="City / Location*" required> <i class="fal fa-map-marker-alt"></i></div>
-                            <div class="form-group style-border5 col-md-6">
-                                <select class="form-control" name="investment_range" id="investment_range" required>
+                            <div class="form-group style-border2 col-md-6">
+                                <select class="form-control border-white text-white" name="investment_range" id="investment_range" required>
                                     <option value="">Preferred Investment Range*</option>
                                     <option value="50L-1Cr">₹50L – ₹1 Cr</option>
                                     <option value="1Cr-2Cr">₹1 Cr – ₹2 Cr</option>
@@ -682,8 +682,8 @@
                                     <option value="5Cr+">₹5 Cr+</option>
                                 </select>
                             </div>
-                            <div class="form-group style-border5 col-md-6">
-                                <select class="form-control" name="investment_preference" id="investment_preference" required>
+                            <div class="form-group style-border2  col-md-6">
+                                <select class="form-control border-white text-white" name="investment_preference" id="investment_preference" required>
                                     <option value="">Investment Preference*</option>
                                     <option  value="long-term">Long-term hold for appreciation</option>
                                     <option value="short-term">Short-term flip for profit</option>
@@ -693,10 +693,12 @@
                             
                             <div class="form-group style-border5 col-md-12"><input type="text" class="form-control"
                                     name="referral" id="referral" placeholder="Referral (if any)"> <i class="fal fa-users"></i></div>
-                                    <div class="form-group style-border5 col-md-12">
-                                <label class="text-white">Have you invested in land before?*</label>
-                                <input type="radio" name="invested_before" value="yes" required> <label class="text-white">Yes</label>
-                                <input type="radio" name="invested_before" value="no" required> <label class="text-white">No</label>
+                            <div class="form-group style-border5 col-md-12">
+                                <select class="form-control border-white text-white" name="invested_before" id="invested_before" required>
+                                    <option value="">Have you invested in land before?*</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
                             </div>
                             <div class="col-12 form-btn mt-4 text-end"><button class="th-btn style4">Submit Message <span
                                         class="btn-icon"><img src="assets/img/icon/paper-plane.svg"
