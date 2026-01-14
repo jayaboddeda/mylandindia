@@ -1,0 +1,571 @@
+<!doctype html>
+<html class="no-js" lang="zxx" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Property Listings - My Land India</title>
+    <meta name="author" content="My Land India">
+    <meta name="description" content="Explore our exclusive property listings">
+    <meta name="robots" content="INDEX,FOLLOW">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#224083">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Outfit:wght@100..900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Custom styles for property listings */
+        :root {
+            --listing-accent-1: #224083;
+            --listing-accent-2: #f0a538;
+            --listing-accent-3: #209e2e;
+        }
+
+        .property-hero {
+            background-color: var(--theme-color);
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .property-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/img/normal/view-land-plot-real-estate-business-development.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .property-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(34, 64, 131, 0.95), rgba(20, 38, 79, 0.9));
+            z-index: 2;
+        }
+
+        .property-hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .section-shapes .shape {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        .section-shapes .shape-1 {
+            top: 10%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: var(--theme-color2);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .section-shapes .shape-2 {
+            bottom: 10%;
+            right: -5%;
+            width: 200px;
+            height: 200px;
+            background: var(--theme-color);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .listings-section {
+            background: linear-gradient(to bottom, #f5f7f9 0%, #eef2f6 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .listing-card {
+            background: #1a3154;
+            /* Dark Blue Theme as per user request */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            background: #224083;
+            /* Slightly lighter blue on hover */
+        }
+
+        .listing-img-wrapper {
+            position: relative;
+            height: 280px;
+            /* Taller image as per reference */
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .listing-img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s ease;
+        }
+
+        .listing-card:hover .listing-img {
+            transform: scale(1.05);
+        }
+
+        .listing-img-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            z-index: 1;
+        }
+
+        .listing-area-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+            z-index: 2;
+            font-family: var(--title-font);
+            letter-spacing: 0.5px;
+        }
+
+        .listing-verified-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #4caf50;
+            /* Green badge */
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        .listing-content {
+            padding: 20px 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        .listing-header {
+            margin-bottom: 5px;
+        }
+
+        .listing-title {
+            font-size: 22px;
+            font-weight: 600;
+            /* Clean serif-like feel */
+            color: #fff;
+            margin-bottom: 4px;
+            font-family: var(--title-font);
+        }
+
+        .listing-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .listing-sub-location {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .listing-features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 10px;
+            margin-bottom: 25px;
+        }
+
+        .feature-item-v2 {
+            width: 48%;
+            font-size: 14px;
+            color: #eee;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+        }
+
+        .feature-item-v2 i {
+            color: var(--theme-color2);
+            /* Orange accent icons */
+            font-size: 14px;
+        }
+
+        .listing-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            margin-bottom: 15px;
+            margin-top: auto;
+        }
+
+        .listing-footer-prices {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 5px;
+        }
+
+        .price-block-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .total-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            font-family: var(--title-font);
+        }
+
+        .unit-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ccc;
+            font-family: var(--title-font);
+        }
+
+        .listing-badges,
+        .listing-location,
+        .listing-features,
+        .btn-view-details,
+        .listing-price {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="">
+
+    <div id="navbar-container"></div>
+
+    <section class="property-hero">
+        <div class="property-hero-bg"></div>
+        <div class="container">
+            <div class="property-hero-content">
+                <span class="sub-title5 text-white justify-content-center mb-3"> Premium
+                    Selection</span>
+                <h2 class="hero-title text-white mb-4">Discover Extraordinary <span
+                        style="color: var(--theme-color2);">Properties</span></h2>
+                <p class="text-white mx-auto fs-6" style="max-width: 700px; opacity: 0.9;">Handpicked land parcels and
+                    communities that offer exceptional value, security, and growth potential for the modern investor.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="listings-section">
+        <div class="section-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+
+        <div class="container">
+            <div class="row pt-2 pb-5 align-items-center">
+                <div class="col-lg-8">
+                    <p class="mb-0 fw-bold text-uppercase" style="color: var(--theme-color); letter-spacing: 1px;">
+                        Showing All 6 Properties</p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <!-- Could add filter dropdown here later -->
+                </div>
+            </div>
+
+            <div class="row gy-5">
+                <!-- Listing 1 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-img-wrapper">
+                            <div class="listing-img"
+                                style="background-image: url('assets/img/project/valley_clubhouse.png');"></div>
+                            <div class="listing-img-overlay"></div>
+                            <div class="listing-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</div>
+                            <div class="listing-area-badge">500 Sq. Yds</div>
+                        </div>
+                        <div class="listing-content">
+                            <div class="listing-header">
+                                <h3 class="listing-title"><a href="contact.html">The Valley</a></h3>
+                                <div class="listing-sub-location">Near 4th City, Tukkuguda</div>
+                            </div>
+
+                            <div class="listing-features-grid">
+                                <div class="feature-item-v2"><i class="fa-regular fa-shield-check"></i> 24/7 Security
+                                </div>
+                                <div class="feature-item-v2"><i class="fa-regular fa-water"></i> Drip Irrigation</div>
+                                <div class="feature-item-v2"><i class="fa-regular fa-house-chimney"></i> Clubhouse</div>
+                                <div class="feature-item-v2"><i class="fa-regular fa-road"></i> 40ft Road</div>
+                            </div>
+
+                            <div class="listing-divider"></div>
+
+                            <div class="listing-footer-prices">
+                                <div>
+                                    <span class="price-block-label">Total Price</span>
+                                    <span class="total-price">₹1.5 Cr</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="price-block-label">Per acre</span>
+                                    <span class="unit-price">₹30,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 2 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-img-wrapper">
+                            <div class="listing-img" style="background-image: url('assets/img/project/springs.jpg');">
+                            </div>
+                            <div class="listing-img-overlay"></div>
+                            <div class="listing-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</div>
+                            <div class="listing-area-badge">300 Sq. Yds</div>
+                        </div>
+                        <div class="listing-content">
+                            <div class="listing-header">
+                                <h3 class="listing-title"><a href="contact.html">Springs</a></h3>
+                                <div class="listing-sub-location">Southend Park, Hyderabad</div>
+                            </div>
+
+                            <div class="listing-features-grid">
+                                <div class="feature-item-v2"><i class="fa-regular fa-tree"></i> Gardens</div>
+                                <div class="feature-item-v2"><i class="fa-regular fa-road"></i> Blacktop</div>
+                                <div class="feature-item-v2"><i class="fa-regular fa-bolt"></i> Electricity</div>
+                                <div class="feature-item-v2"><i class="fa-regular fa-compass"></i> Vastu</div>
+                            </div>
+
+                            <div class="listing-divider"></div>
+
+                            <div class="listing-footer-prices">
+                                <div>
+                                    <span class="price-block-label">Total Price</span>
+                                    <span class="total-price">₹85 Lakhs</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="price-block-label">Per Sq. Yd</span>
+                                    <span class="unit-price">₹28,333</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 3 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-img-wrapper">
+                            <div class="listing-img"
+                                style="background-image: url('assets/img/normal/view-land-plot-real-estate-business-development.jpg');">
+                            </div>
+                            <div class="listing-img-overlay"></div>
+                            <div class="listing-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</div>
+                            <div class="listing-area-badge">1.0 Acre</div>
+                        </div>
+                        <div class="listing-content">
+                            <div class="listing-header">
+                                <h3 class="listing-title"><a href="contact.html">Green Acres</a></h3>
+                                <div class="listing-sub-location">Shankarpally, Rangareddy</div>
+                            </div>
+
+                            <div class="listing-features-grid">
+                                <div class="feature-item-v2"><i class="fa-solid fa-leaf"></i> Fertile Soil</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-droplet"></i> Borewell</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-fence"></i> Fencing</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-tractor"></i> Road Access</div>
+                            </div>
+
+                            <div class="listing-divider"></div>
+
+                            <div class="listing-footer-prices">
+                                <div>
+                                    <span class="price-block-label">Total Price</span>
+                                    <span class="total-price">₹2.1 Cr</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="price-block-label">Per Acre</span>
+                                    <span class="unit-price">₹2.1 Cr</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 4 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-img-wrapper">
+                            <div class="listing-img" style="background-image: url('assets/img/normal/about_2_1.png');">
+                            </div>
+                            <div class="listing-img-overlay"></div>
+                            <div class="listing-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</div>
+                            <div class="listing-area-badge">200 Sq. Yds</div>
+                        </div>
+                        <div class="listing-content">
+                            <div class="listing-header">
+                                <h3 class="listing-title"><a href="contact.html">Highway Plot</a></h3>
+                                <div class="listing-sub-location">Mumbai Highway, Sangareddy</div>
+                            </div>
+
+                            <div class="listing-features-grid">
+                                <div class="feature-item-v2"><i class="fa-solid fa-building"></i> Commercial</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-map"></i> Highway</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-chart-line"></i> High Growth</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-file-contract"></i> Clear Title</div>
+                            </div>
+
+                            <div class="listing-divider"></div>
+
+                            <div class="listing-footer-prices">
+                                <div>
+                                    <span class="price-block-label">Total Price</span>
+                                    <span class="total-price">₹60 Lakhs</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="price-block-label">Per Sq. Yd</span>
+                                    <span class="unit-price">₹30,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 5 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-img-wrapper">
+                            <div class="listing-img"
+                                style="background-image: url('assets/img/project/valley_clubhouse.png');"></div>
+                            <div class="listing-img-overlay"></div>
+                            <div class="listing-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</div>
+                            <div class="listing-area-badge">400 Sq. Yds</div>
+                        </div>
+                        <div class="listing-content">
+                            <div class="listing-header">
+                                <h3 class="listing-title"><a href="contact.html">Lakeside</a></h3>
+                                <div class="listing-sub-location">Shamirpet, Hyderabad</div>
+                            </div>
+
+                            <div class="listing-features-grid">
+                                <div class="feature-item-v2"><i class="fa-solid fa-water-ladder"></i> Lake View</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-house"></i> Villa Zone</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-tree"></i> Greenery</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-road"></i> 60ft Road</div>
+                            </div>
+
+                            <div class="listing-divider"></div>
+
+                            <div class="listing-footer-prices">
+                                <div>
+                                    <span class="price-block-label">Total Price</span>
+                                    <span class="total-price">₹1.2 Cr</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="price-block-label">Per Sq. Yd</span>
+                                    <span class="unit-price">₹30,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 6 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-img-wrapper">
+                            <div class="listing-img" style="background-image: url('assets/img/project/springs.jpg');">
+                            </div>
+                            <div class="listing-img-overlay"></div>
+                            <div class="listing-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</div>
+                            <div class="listing-area-badge">250 Sq. Yds</div>
+                        </div>
+                        <div class="listing-content">
+                            <div class="listing-header">
+                                <h3 class="listing-title"><a href="contact.html">Urban Living</a></h3>
+                                <div class="listing-sub-location">Medchal, Hyderabad</div>
+                            </div>
+
+                            <div class="listing-features-grid">
+                                <div class="feature-item-v2"><i class="fa-solid fa-city"></i> Urban</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-park"></i> Parks</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-school"></i> Schools</div>
+                                <div class="feature-item-v2"><i class="fa-solid fa-bus"></i> Transport</div>
+                            </div>
+
+                            <div class="listing-divider"></div>
+
+                            <div class="listing-footer-prices">
+                                <div>
+                                    <span class="price-block-label">Total Price</span>
+                                    <span class="total-price">₹95 Lakhs</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="price-block-label">Per Sq. Yd</span>
+                                    <span class="unit-price">₹38,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+    <div class="scroll-top"><svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;">
+            </path>
+        </svg></div>
+    <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
