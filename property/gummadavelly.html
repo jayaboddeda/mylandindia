@@ -23,6 +23,19 @@
     <link rel="stylesheet" href="../assets/css/property-details.css">
     <style>
         /* CSS moved to assets/css/property-details.css */
+
+        /* Force non-transparent header similar to other pages */
+        .th-header .sticky-wrapper.sticky {
+            background-color: #fff;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ensure the menu area has a background even before sticky on this page if needed, 
+           or just rely on the sticky class for scroll. 
+           If the user wants it ALWAYs non-transparent (not just on scroll), we can add: */
+        .th-header .menu-area {
+            background-color: #fff;
+        }
     </style>
 </head>
 
