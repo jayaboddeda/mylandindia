@@ -73,6 +73,26 @@
         fixPaths($(this));
       });
     }
+
+    // Load Site Visit Modal
+    if ($("#site-visit-modal-container").length) {
+      // Assuming components are relative to base or strict path. 
+      // If modal is in components/, and basePath is ../, we need to adjust.
+      // Since navbar.html is in root (loaded as basePath + "navbar.html"), 
+      // and checking file structure implies components/site-visit-modal.html
+      // We'll check if basePath includes "property" context or just rely on relative path from root.
+      // Actually, if we are in property/gummadavelly.html, basePath is "../". 
+      // So "../components/site-visit-modal.html" should work.
+
+      var componentPath = "components/site-visit-modal.html";
+      $("#site-visit-modal-container").load(basePath + componentPath, function (response, status, xhr) {
+        if (status == "error") {
+          // Fallback if file is in root (compatibility) or handling paths differently
+          console.log("Error loading modal from components, trying root...");
+          // $("#site-visit-modal-container").load(basePath + "site-visit-modal.html");
+        }
+      });
+    }
   });
 })(jQuery);
 !(function (e) {

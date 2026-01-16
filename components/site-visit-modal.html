@@ -1,0 +1,124 @@
+<div class="modal fade" id="siteVisitModal" tabindex="-1" aria-labelledby="siteVisitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px; margin: auto;">
+        <div class="modal-content"
+            style="background-color: #ffffff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <div class="modal-header">
+                <h5 class="modal-title" id="siteVisitModalLabel">Request Site Visit</h5>
+                <button type="button" class="close-modal-btn" data-bs-dismiss="modal" aria-label="Close"
+                    style="background: none; border: none; font-size: 24px; color: #333;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="siteVisitFormContainer">
+                    <form id="siteVisitForm" action="#" class="site-visit-form">
+                        <div class="mb-3">
+                            <label for="visitorName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="visitorName" name="name" placeholder="Your Name"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="visitorMobile" class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-control" id="visitorMobile" name="mobile"
+                                placeholder="Your Mobile Number" pattern="[0-9]{10}"
+                                title="Please enter a valid 10-digit mobile number" required>
+                        </div>
+                        <input type="hidden" id="propertyName" name="property" value="">
+
+                        <button type="submit" class="th-btn w-100">Submit Request</button>
+                        <!-- Form messages (for errors) -->
+                        <div class="form-messages mt-3 text-center"></div>
+                    </form>
+                </div>
+                <div id="siteVisitSuccessMessage" style="display: none;">
+                    <div class="text-success text-center py-4">
+                        <div class="mb-3"><i class="fa-solid fa-circle-check fa-3x"></i></div>
+                        <h4 class="text-success">Thank you!</h4>
+                        <p class="mb-0 text-dark">Our team will contact you in 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple form submission handler (mockup)
+    $('#siteVisitForm').on('submit', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        var btn = form.find('button[type="submit"]');
+        var originalBtnText = btn.text();
+
+        // Add loading state
+        btn.prop('disabled', true).text('Sending...');
+
+        // Google Apps Script URL - RE PLACE THIS WITH YOUR DEPLOYED WEB APP URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzQTSX1WpSKPueH2F7ecEgoW1oBJis2b4IPyEErvgVAsczmPC4zCnDeCL8lDbVnJf_f/exec';
+
+        // Prepare form data
+        let requestBody = new FormData(form[0]);
+        // Add property name manually if not picked up (input type hidden usually works with FormData)
+        // Ensure "property" key matches the "Property" header in Google Sheet
+        requestBody.set('property', $('#propertyName').val());
+        // Google script keys are case sensitive, mapping to headers.
+        // Our script maps keys 'name', 'mobile', 'property_name' to columns if headers match.
+        // Or simpler: The script provided in guide maps row headers to params.
+
+        fetch(scriptURL, { method: 'POST', body: requestBody })
+            .then(response => {
+                // Success
+                $('#siteVisitFormContainer').fadeOut(200, function () {
+                    $('#siteVisitSuccessMessage').fadeIn(200);
+                });
+
+                form[0].reset();
+                btn.prop('disabled', false).text(originalBtnText);
+
+                setTimeout(function () {
+                    $('#siteVisitModal').modal('hide');
+                }, 4000);
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+
+                if (scriptURL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                    // Show error in the form message area
+                    form.find('.form-messages').removeClass('text-success').addClass('text-danger').html('Error: Google Sheet not connected. Please see setup guide.');
+                    btn.prop('disabled', false).text(originalBtnText);
+                } else {
+                    // Optimistic success
+                    $('#siteVisitFormContainer').fadeOut(200, function () {
+                        $('#siteVisitSuccessMessage').fadeIn(200);
+                    });
+
+                    form[0].reset();
+                    setTimeout(() => $('#siteVisitModal').modal('hide'), 4000);
+                    btn.prop('disabled', false).text(originalBtnText);
+                }
+            });
+
+        // In a real implementation, you would use $.ajax here
+        // Set the property name dynamically based on page title or hidden field
+        $('#propertyName').val(document.title);
+    });
+
+    // Auto-fill property name when modal opens
+    var propertyVisitModal = document.getElementById('siteVisitModal')
+    propertyVisitModal.addEventListener('show.bs.modal', function (event) {
+        var propName = document.title.split('-')[0].trim(); // Extract property name from title
+        document.getElementById('propertyName').value = propName;
+    });
+
+    // Reset form when modal closes
+    propertyVisitModal.addEventListener('hidden.bs.modal', function (event) {
+        var form = $(this).find('form');
+        form[0].reset();
+
+        // Reset visibility
+        $('#siteVisitSuccessMessage').hide();
+        $('#siteVisitFormContainer').show();
+
+        form.find('.form-messages').html('').removeClass('text-success text-danger text-center');
+    });
+</script>
