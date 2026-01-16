@@ -1,0 +1,892 @@
+<!doctype html>
+<html class="no-js" lang="zxx" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Gummadavelly - Property Details | My Land India</title>
+    <meta name="author" content="My Land India">
+    <meta name="description" content="Premium land listing details">
+    <meta name="robots" content="INDEX,FOLLOW">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#224083">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Outfit:wght@100..900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        :root {
+            --listing-accent-1: #1a3154;
+            --listing-accent-2: #1b8e31;
+            /* Green Accent */
+            --listing-accent-3: #209e2e;
+            --bg-pattern: url('assets/img/bg/pattern_bg_1.png');
+        }
+
+        body {
+            background-color: #f4f7fa;
+            background-image: radial-gradient(#e1e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .details-header-section {
+            background: #1a3154;
+            padding: 140px 0 80px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .details-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            background-image: url('assets/img/normal/view-land-plot-real-estate-business-development.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .details-header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(26, 49, 84, 0.95) 0%, rgba(26, 49, 84, 0.7) 100%);
+            z-index: -1;
+        }
+
+        .prop-title {
+            font-family: var(--title-font);
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .prop-location {
+            font-size: 18px;
+            opacity: 1;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 20px;
+        }
+
+        .prop-location i {
+            color: var(--listing-accent-2);
+            margin-right: 8px;
+        }
+
+        /* Gallery Carousel Styles */
+        .gallery-container {
+            border-radius: 20px;
+            /* overflow: hidden; */
+            /* Removing overflow hidden to allow buttons to stick out if needed, but keeping borders round */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: var(--smoke-color3);
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+        .carousel-main-container {
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+        }
+
+        .carousel-item {
+            height: 450px;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.8;
+            margin: 0 20px;
+            transition: 0.3s;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a3154;
+            opacity: 1;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            filter: invert(1);
+            /* Make default white icons black if needed on light bg, currently keeping white on translucent bg */
+        }
+
+        /* Video Slide */
+        .video-slide-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        /* Thumbnails */
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .thumb-img {
+            height: 100px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .thumb-img:hover,
+        .thumb-img.active-thumb {
+            opacity: 1;
+            border-color: var(--listing-accent-2);
+        }
+
+        /* Content Sections */
+        .content-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+            border: 1px solid #edf2f7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Premium Gradient for Essentials */
+        .content-card.highlight-card,
+        .content-card.gradient-bg {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f7e8 100%);
+            border: none;
+            border-left: 5px solid var(--listing-accent-2);
+        }
+
+        .section-title {
+            font-family: var(--title-font);
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a3154;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--listing-accent-2);
+            background: rgba(27, 142, 49, 0.1);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* Essential Details Grid */
+        .essential-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .essential-item {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .essential-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--listing-accent-2);
+            transform: scaleX(0);
+            transition: 0.3s;
+        }
+
+        .essential-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(27, 142, 49, 0.15);
+        }
+
+        .essential-item:hover::after {
+            transform: scaleX(1);
+        }
+
+        .essential-icon {
+            font-size: 28px;
+            color: var(--listing-accent-2);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .essential-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .essential-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a3154;
+            font-family: var(--title-font);
+        }
+
+        /* Feature List */
+        .feature-box {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .feature-box:hover {
+            border-color: var(--listing-accent-2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(27, 142, 49, 0.1);
+            color: var(--listing-accent-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .feature-info h5 {
+            font-size: 16px;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .feature-info p {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+
+        /* Landmark Timeline */
+        .landmark-list {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .landmark-item {
+            position: relative;
+            padding-bottom: 25px;
+            padding-left: 25px;
+            border-left: 2px dashed #ddd;
+        }
+
+        .landmark-item:last-child {
+            border-left: none;
+        }
+
+        .landmark-icon {
+            position: absolute;
+            left: -16px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--listing-accent-2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 4px solid #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .landmark-text {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .landmark-dist {
+            font-weight: 700;
+            color: var(--listing-accent-2);
+            float: right;
+        }
+
+        /* Sidebar Sticky Card */
+        .sticky-sidebar {
+            position: sticky;
+            top: 20px;
+        }
+
+        .action-card {
+            background: #1a3154;
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(26, 49, 84, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .price-tag-large {
+            font-size: 36px;
+            font-weight: 700;
+            font-family: var(--title-font);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .per-unit-large {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .action-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-site-visit {
+            background: #fff;
+            color: #1a3154;
+        }
+
+        .btn-site-visit:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .btn-advisor {
+            background: var(--listing-accent-2);
+            color: white;
+        }
+
+        .btn-advisor:hover {
+            background: #146c25;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .trust-badge-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trust-item {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.9;
+        }
+
+        .trust-item i {
+            color: var(--listing-accent-2);
+        }
+
+        /* Why Choose Card */
+        .why-card {
+            background: #ecf3fa;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .why-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a3154;
+            margin-bottom: 15px;
+        }
+
+        .why-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #555;
+            list-style: none;
+        }
+
+        .why-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--listing-accent-2);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <!-- Header Section -->
+    <div class="breadcumb-wrapper" data-bg-src="assets/img/properties/gummadavelly/img_1.jpg">
+        <div class="breadcumb-overlay" data-bg-src="assets/img/bg/breadcumb-bg-overlay.png"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcumb-content">
+                        <h1 class="breadcumb-title">Gummadavelly, 4th City</h1>
+                        <ul class="breadcumb-menu">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="property-listings.html">Properties</a></li>
+                            <li>Gummadavelly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="space-top space-bottom">
+        <div class="container">
+            <div class="row">
+                <!-- Left Sidebar / Main Info -->
+                <div class="col-xl-8">
+
+                    <div class="gallery-container">
+
+                        <!-- Main Slider -->
+                        <div id="propertyGallery" class="carousel slide carousel-main-container"
+                            data-bs-interval="false">
+                            <div class="carousel-inner h-100">
+                                <!-- Image 1 -->
+                                <div class="carousel-item active">
+                                    <img src="assets/img/properties/gummadavelly/img_1.jpg" class="d-block w-100"
+                                        alt="Gummadavelly View 1">
+                                </div>
+                                <!-- Image 2 -->
+                                <div class="carousel-item">
+                                    <img src="assets/img/properties/gummadavelly/img_2.jpg" class="d-block w-100"
+                                        alt="Gummadavelly View 2">
+                                </div>
+                                <!-- Image 3 -->
+                                <div class="carousel-item">
+                                    <img src="assets/img/properties/gummadavelly/img_3.jpg" class="d-block w-100"
+                                        alt="Gummadavelly View 3">
+                                </div>
+                                <!-- Image 4 -->
+                                <div class="carousel-item">
+                                    <img src="assets/img/properties/gummadavelly/img_4.jpg" class="d-block w-100"
+                                        alt="Gummadavelly View 4">
+                                </div>
+                                <!-- Video 1 -->
+                                <div class="carousel-item">
+                                    <div class="video-slide-container">
+                                        <video width="100%" height="100%" muted loop playsinline class="d-block">
+                                            <source src="assets/img/properties/gummadavelly/vid_1.mov" type="video/mp4">
+                                            <source src="assets/img/properties/gummadavelly/vid_1.mov"
+                                                type="video/quicktime">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                </div>
+                                <!-- Video 2 -->
+                                <div class="carousel-item">
+                                    <div class="video-slide-container">
+                                        <video width="100%" height="100%" muted loop playsinline class="d-block">
+                                            <source src="assets/img/properties/gummadavelly/vid_2.mov" type="video/mp4">
+                                            <source src="assets/img/properties/gummadavelly/vid_2.mov"
+                                                type="video/quicktime">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#propertyGallery"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#propertyGallery"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div class="thumb-grid">
+                            <img src="assets/img/properties/gummadavelly/img_1.jpg" class="thumb-img active-thumb"
+                                onclick="$('#propertyGallery').carousel(0)" alt="Thumb 1">
+                            <img src="assets/img/properties/gummadavelly/img_2.jpg" class="thumb-img"
+                                onclick="$('#propertyGallery').carousel(1)" alt="Thumb 2">
+                            <img src="assets/img/properties/gummadavelly/img_3.jpg" class="thumb-img"
+                                onclick="$('#propertyGallery').carousel(2)" alt="Thumb 3">
+                            <img src="assets/img/properties/gummadavelly/img_4.jpg" class="thumb-img"
+                                onclick="$('#propertyGallery').carousel(3)" alt="Thumb 4">
+                            <!-- Video Thumb 1 -->
+                            <div class="position-relative thumb-img" onclick="$('#propertyGallery').carousel(4)"
+                                style="background: #000; overflow:hidden;">
+                                <img src="assets/img/properties/gummadavelly/img_1.jpg"
+                                    style="width:100%; height:100%; object-fit:cover; opacity: 0.5;">
+                                <div class="position-absolute top-50 start-50 translate-middle text-white"><i
+                                        class="fa-solid fa-play-circle fa-1x"></i></div>
+                            </div>
+                            <!-- Video Thumb 2 -->
+                            <div class="position-relative thumb-img" onclick="$('#propertyGallery').carousel(5)"
+                                style="background: #000; overflow:hidden;">
+                                <img src="assets/img/properties/gummadavelly/img_2.jpg"
+                                    style="width:100%; height:100%; object-fit:cover; opacity: 0.5;">
+                                <div class="position-absolute top-50 start-50 translate-middle text-white"><i
+                                        class="fa-solid fa-play-circle fa-1x"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Action Cards (Visible only on Mobile/Tablet) -->
+                    <div class="d-block d-xl-none mb-30">
+                        <div class="action-card">
+                            <span class="price-tag-large">₹1.25 Cr</span>
+                            <span class="per-unit-large">₹1.39 Cr per acre</span>
+
+                            <a href="#" class="action-btn btn-site-visit">
+                                <i class="fa-regular fa-calendar-check"></i> Request Site Visit
+                            </a>
+                            <a href="#" class="action-btn btn-advisor">
+                                <i class="fa-solid fa-phone-volume"></i> Talk to Advisor
+                            </a>
+
+                            <div class="trust-badge-row">
+                                <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Verified</div>
+                                <div class="trust-item"><i class="fa-solid fa-file-circle-check"></i> Clear Title</div>
+                                <div class="trust-item"><i class="fa-solid fa-ban"></i> No Brokerage</div>
+                            </div>
+                        </div>
+
+                        <div class="why-card">
+                            <h4>Why Buy This Property?</h4>
+                            <ul class="why-list">
+                                <li>Located in the heart of Future City.</li>
+                                <li>Direct access to Srisailam, Nagarjuna Sagar & Kongara Kalan.</li>
+                                <li>Adjacent to established farm-land project.</li>
+                                <li>Strong long-term appreciation potential.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Bar -->
+                    <div class="content-card highlight-card">
+                        <div class="essential-grid">
+                            <div class="essential-item">
+                                <i class="essential-icon fa-solid fa-vector-square"></i>
+                                <span class="essential-label">Project Extent</span>
+                                <span class="essential-value">36 Guntas</span>
+                            </div>
+                            <div class="essential-item">
+                                <i class="essential-icon fa-solid fa-road"></i>
+                                <span class="essential-label">Dist. to ORR</span>
+                                <span class="essential-value">25 KMs</span>
+                            </div>
+                            <div class="essential-item">
+                                <i class="essential-icon fa-solid fa-ruler-horizontal"></i>
+                                <span class="essential-label">Dist. to BT Road</span>
+                                <span class="essential-value">1 Km</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About / Description -->
+                    <div class="content-card gradient-bg">
+                        <h3 class="section-title"><i class="fa-solid fa-align-left"></i> About Experience</h3>
+                        <p class="mb-3 text-body">Located in the heart of <strong>Future City</strong>, this parcel sits
+                            strategically between the Srisailam Highway, Nagarjuna Sagar Highway, and Kongara Kalan,
+                            with direct access roads to all three.</p>
+                        <p class="text-body mb-0">Immediately adjacent to an established farm-land project, the site
+                            offers excellent connectivity and strong long-term appreciation potential — ideal for
+                            patient, strategic investors seeking a secure land position in Hyderabad’s primary growth
+                            corridor.</p>
+                    </div>
+
+                    <!-- Layout / Features -->
+                    <div class="content-card gradient-bg">
+                        <h3 class="section-title"><i class="fa-solid fa-layer-group"></i> Property Features</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-box">
+                                    <div class="feature-icon"><i class="fa-solid fa-seedling"></i></div>
+                                    <div class="feature-info">
+                                        <h5>Soil Type</h5>
+                                        <p>Red Soil</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-box">
+                                    <div class="feature-icon"><i class="fa-solid fa-road"></i></div>
+                                    <div class="feature-info">
+                                        <h5>Road Access</h5>
+                                        <p>1Km from BT Road</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-box">
+                                    <div class="feature-icon"><i class="fa-solid fa-vector-square"></i></div>
+                                    <div class="feature-info">
+                                        <h5>Fencing</h5>
+                                        <p>Stone Fencing</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-box">
+                                    <div class="feature-icon"><i class="fa-solid fa-city"></i></div>
+                                    <div class="feature-info">
+                                        <h5>Location Zone</h5>
+                                        <p>Future City Limits</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Distances -->
+                    <div class="content-card gradient-bg">
+                        <h3 class="section-title"><i class="fa-solid fa-map-location-dot"></i> Key Distances</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="landmark-list">
+                                    <div class="landmark-item">
+                                        <div class="landmark-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                        <span class="landmark-text">Mirkhanpet</span>
+                                        <span class="landmark-dist">5 KM</span>
+                                    </div>
+                                    <div class="landmark-item">
+                                        <div class="landmark-icon"><i class="fa-solid fa-road"></i></div>
+                                        <span class="landmark-text">Tukkuguda ORR Exit 12</span>
+                                        <span class="landmark-dist">25 KM</span>
+                                    </div>
+                                    <div class="landmark-item">
+                                        <div class="landmark-icon"><i class="fa-solid fa-city"></i></div>
+                                        <span class="landmark-text">Raviryal Exit 13 (Foxconn)</span>
+                                        <span class="landmark-dist">22 KM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="landmark-list">
+                                    <div class="landmark-item">
+                                        <div class="landmark-icon"><i class="fa-solid fa-road"></i></div>
+                                        <span class="landmark-text">330FT Ratan Tata Road</span>
+                                        <span class="landmark-dist">5 KM</span>
+                                    </div>
+                                    <div class="landmark-item">
+                                        <div class="landmark-icon"><i class="fa-solid fa-university"></i></div>
+                                        <span class="landmark-text">Skill Univ & Amazon DC</span>
+                                        <span class="landmark-dist">10 KM</span>
+                                    </div>
+                                    <div class="landmark-item">
+                                        <div class="landmark-icon"><i class="fa-solid fa-train"></i></div>
+                                        <span class="landmark-text">Proposed Metro Station</span>
+                                        <span class="landmark-dist">5 KM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-map">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.751418663625!2d78.38001539999999!3d17.423713199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4395dd4068661831%3A0xeaa59f61d343e64f!2sMy%20land%20India!5e0!3m2!1sen!2sin!4v1759939582014!5m2!1sen!2sin"
+                            allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <!-- Sticky Sidebar -->
+                <div class="col-xl-4">
+                    <div class="sticky-sidebar d-none d-xl-block">
+
+                        <div class="action-card">
+                            <span class="price-tag-large">₹1.25 Cr</span>
+                            <span class="per-unit-large">₹1.39 Cr per acre</span>
+
+                            <a href="#" class="action-btn btn-site-visit">
+                                <i class="fa-regular fa-calendar-check"></i> Request Site Visit
+                            </a>
+                            <a href="#" class="action-btn btn-advisor">
+                                <i class="fa-solid fa-phone-volume"></i> Talk to Advisor
+                            </a>
+
+                            <div class="trust-badge-row">
+                                <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Verified</div>
+                                <div class="trust-item"><i class="fa-solid fa-file-circle-check"></i> Clear Title</div>
+                                <div class="trust-item"><i class="fa-solid fa-ban"></i> No Brokerage</div>
+                            </div>
+                        </div>
+
+                        <div class="why-card">
+                            <h4>Why Buy This Property?</h4>
+                            <ul class="why-list">
+                                <li>Located in the heart of Future City.</li>
+                                <li>Direct access to Srisailam, Nagarjuna Sagar & Kongara Kalan.</li>
+                                <li>Adjacent to established farm-land project.</li>
+                                <li>Strong long-term appreciation potential.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Area -->
+    <div id="footer-container"></div>
+
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <!-- Jquery -->
+    <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Load Navbar and Footer
+            $("#navbar-container").load("navbar.html", function () {
+                // Determine current page and set active class
+                var path = window.location.pathname;
+                var page = path.split("/").pop();
+                if (page === "") { page = "index.html"; } // Default to index.html
+
+                // Find the link that matches the current page and add 'active' class
+                $('#navbar-container .main-menu ul li a').each(function () {
+                    var href = $(this).attr('href');
+                    if (href === page) {
+                        $(this).parent().addClass('active');
+                        // Also add active to parent dropdown if applicable
+                        $(this).closest('.menu-item-has-children').addClass('active');
+                    }
+                });
+            });
+            $("#footer-container").load("footer.html");
+
+            // Video Autoplay Logic & Thumbnail Sync
+            $('#propertyGallery').on('slide.bs.carousel', function (e) {
+                // Update active thumbnail
+                var index = e.to;
+                $('.thumb-img').removeClass('active-thumb');
+                $('.thumb-img').eq(index).addClass('active-thumb');
+
+                // Pause all videos when slide starts to change
+                $('video').each(function () {
+                    this.pause();
+                });
+            });
+
+            $('#propertyGallery').on('slid.bs.carousel', function () {
+                // Play video if the active slide contains one
+                var activeVideo = $('.carousel-item.active video')[0];
+                if (activeVideo) {
+                    activeVideo.play().catch(function (e) {
+                        console.log("Autoplay prevented. User interaction may be required.");
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
