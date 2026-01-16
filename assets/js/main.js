@@ -1,28 +1,80 @@
-// Load navbar
-fetch('navbar.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-        // Initialize mobile menu after navbar is loaded
-        jQuery(".th-menu-wrapper").thmobilemenu();
-    })
-    .catch(error => console.error('Error loading navbar:', error));
+// Main Component Loader
+(function ($) {
+  $(document).ready(function () {
+    var basePath = window.basePath || "";
 
-// Load contact info
-fetch('contact-info.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('contact-info-container').innerHTML = data;
-    })
-    .catch(error => console.error('Error loading contact info:', error));
+    function fixPaths($container) {
+      if (!basePath) return; // Only fix if there's a base path (subdirectory)
 
-// Load footer
-fetch('footer.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('footer-container').innerHTML = data;
-    })
-    .catch(error => console.error('Error loading footer:', error));
+      var prefix = basePath;
+      // Fix Images
+      $container.find("img").each(function () {
+        var src = $(this).attr("src");
+        if (src && !src.match(/^(\.|\/|http|https|data:)/)) {
+          $(this).attr("src", prefix + src);
+        }
+      });
+
+      // Fix Links
+      $container.find("a").each(function () {
+        var href = $(this).attr("href");
+        if (href && !href.match(/^(\.|\/|http|https|#|mailto:|tel:|javascript:)/)) {
+          $(this).attr("href", prefix + href);
+        }
+      });
+    }
+
+    function highlightActiveMenu($container) {
+      var path = window.location.pathname;
+      var page = path.split("/").pop() || "index.html";
+
+      // Clean active classes first
+      $container.find('.main-menu ul li').removeClass('active');
+
+      $container.find('.main-menu ul li a').each(function () {
+        var href = $(this).attr('href');
+        if (!href) return;
+
+        // Compare just filenames to handle different paths (e.g. ../contact.html vs contact.html)
+        var hrefPage = href.split("/").pop();
+
+        if (hrefPage === page) {
+          $(this).parent().addClass('active');
+          $(this).closest('.menu-item-has-children').addClass('active');
+        }
+      });
+    }
+
+    // Load Navbar
+    if ($("#navbar-container").length) {
+      $("#navbar-container").load(basePath + "navbar.html", function (response, status, xhr) {
+        if (status == "error") return;
+        var $this = $(this);
+        fixPaths($this);
+        highlightActiveMenu($this);
+
+        // Re-initialize mobile menu if plugin exists
+        if ($.fn.thmobilemenu) {
+          $(".th-menu-wrapper").thmobilemenu();
+        }
+      });
+    }
+
+    // Load Contact Info
+    if ($("#contact-info-container").length) {
+      $("#contact-info-container").load(basePath + "contact-info.html", function () {
+        fixPaths($(this));
+      });
+    }
+
+    // Load Footer
+    if ($("#footer-container").length) {
+      $("#footer-container").load(basePath + "footer.html", function () {
+        fixPaths($(this));
+      });
+    }
+  });
+})(jQuery);
 !(function (e) {
   "use strict";
   function t(t) {
@@ -37,9 +89,9 @@ fetch('footer.html')
                 var n = e(a);
                 n.length &&
                   (t.preventDefault(),
-                  e("html, body")
-                    .stop()
-                    .animate({ scrollTop: n.offset().top - 10 }, 1e3));
+                    e("html, body")
+                      .stop()
+                      .animate({ scrollTop: n.offset().top - 10 }, 1e3));
               }
             });
           });
@@ -49,88 +101,88 @@ fetch('footer.html')
     (e(window).on("load", function () {
       e(".preloader").fadeOut();
     }),
-    e(".preloader").length > 0 &&
+      e(".preloader").length > 0 &&
       e(".preloaderCls").each(function () {
         e(this).on("click", function (t) {
           t.preventDefault(), e(".preloader").css("display", "none");
         });
       }),
-    (e.fn.thmobilemenu = function (t) {
-      var a = e.extend(
-        {
-          menuToggleBtn: ".th-menu-toggle",
-          bodyToggleClass: "th-body-visible",
-          subMenuClass: "th-submenu",
-          subMenuParent: "menu-item-has-children",
-          thSubMenuParent: "th-item-has-children",
-          subMenuParentToggle: "th-active",
-          meanExpandClass: "th-mean-expand",
-          appendElement: '<span class="th-mean-expand"></span>',
-          subMenuToggleClass: "th-open",
-          toggleSpeed: 400,
-        },
-        t
-      );
-      return this.each(function () {
-        var t = e(this);
-        function n() {
-          t.toggleClass(a.bodyToggleClass);
-          var n = "." + a.subMenuClass;
-          e(n).each(function () {
-            e(this).hasClass(a.subMenuToggleClass) &&
-              (e(this).removeClass(a.subMenuToggleClass),
-              e(this).css("display", "none"),
-              e(this).parent().removeClass(a.subMenuParentToggle));
+      (e.fn.thmobilemenu = function (t) {
+        var a = e.extend(
+          {
+            menuToggleBtn: ".th-menu-toggle",
+            bodyToggleClass: "th-body-visible",
+            subMenuClass: "th-submenu",
+            subMenuParent: "menu-item-has-children",
+            thSubMenuParent: "th-item-has-children",
+            subMenuParentToggle: "th-active",
+            meanExpandClass: "th-mean-expand",
+            appendElement: '<span class="th-mean-expand"></span>',
+            subMenuToggleClass: "th-open",
+            toggleSpeed: 400,
+          },
+          t
+        );
+        return this.each(function () {
+          var t = e(this);
+          function n() {
+            t.toggleClass(a.bodyToggleClass);
+            var n = "." + a.subMenuClass;
+            e(n).each(function () {
+              e(this).hasClass(a.subMenuToggleClass) &&
+                (e(this).removeClass(a.subMenuToggleClass),
+                  e(this).css("display", "none"),
+                  e(this).parent().removeClass(a.subMenuParentToggle));
+            });
+          }
+          t.find("." + a.subMenuParent).each(function () {
+            var t = e(this).find("ul");
+            t.addClass(a.subMenuClass),
+              t.css("display", "none"),
+              e(this).addClass(a.subMenuParent),
+              e(this).addClass(a.thSubMenuParent),
+              e(this).children("a").append(a.appendElement);
           });
-        }
-        t.find("." + a.subMenuParent).each(function () {
-          var t = e(this).find("ul");
-          t.addClass(a.subMenuClass),
-            t.css("display", "none"),
-            e(this).addClass(a.subMenuParent),
-            e(this).addClass(a.thSubMenuParent),
-            e(this).children("a").append(a.appendElement);
-        });
-        var s = "." + a.thSubMenuParent + " > a";
-        e(s).each(function () {
-          e(this).on("click", function (t) {
-            var n, s;
-            t.preventDefault(),
-              (n = e(this).parent()),
-              (s = n.children("ul")).length > 0 &&
+          var s = "." + a.thSubMenuParent + " > a";
+          e(s).each(function () {
+            e(this).on("click", function (t) {
+              var n, s;
+              t.preventDefault(),
+                (n = e(this).parent()),
+                (s = n.children("ul")).length > 0 &&
                 (n.toggleClass(a.subMenuParentToggle),
-                s.slideToggle(a.toggleSpeed),
-                s.toggleClass(a.subMenuToggleClass));
-          });
-        }),
-          e(a.menuToggleBtn).each(function () {
-            e(this).on("click", function () {
-              n();
+                  s.slideToggle(a.toggleSpeed),
+                  s.toggleClass(a.subMenuToggleClass));
             });
           }),
-          t.on("click", function (e) {
-            e.stopPropagation(), n();
-          }),
-          t.find("div").on("click", function (e) {
-            e.stopPropagation();
-          });
-      });
-    }),
-    t(".onepage-nav"),
-    t(".scroll-down"),
-    e(window).scroll(function () {
-      e(this).scrollTop() > 500
-        ? (e(".sticky-wrapper").addClass("sticky"),
-          e(".category-menu").addClass("close-category"))
-        : (e(".sticky-wrapper").removeClass("sticky"),
-          e(".category-menu").removeClass("close-category"));
-    }),
-    e(".menu-expand").each(function () {
-      e(this).on("click", function (t) {
-        t.preventDefault(), e(".category-menu").toggleClass("open-category");
-      });
-    }),
-    e(".scroll-top").length > 0)
+            e(a.menuToggleBtn).each(function () {
+              e(this).on("click", function () {
+                n();
+              });
+            }),
+            t.on("click", function (e) {
+              e.stopPropagation(), n();
+            }),
+            t.find("div").on("click", function (e) {
+              e.stopPropagation();
+            });
+        });
+      }),
+      t(".onepage-nav"),
+      t(".scroll-down"),
+      e(window).scroll(function () {
+        e(this).scrollTop() > 500
+          ? (e(".sticky-wrapper").addClass("sticky"),
+            e(".category-menu").addClass("close-category"))
+          : (e(".sticky-wrapper").removeClass("sticky"),
+            e(".category-menu").removeClass("close-category"));
+      }),
+      e(".menu-expand").each(function () {
+        e(this).on("click", function (t) {
+          t.preventDefault(), e(".category-menu").toggleClass("open-category");
+        });
+      }),
+      e(".scroll-top").length > 0)
   ) {
     var a = document.querySelector(".scroll-top"),
       n = document.querySelector(".scroll-top path"),
@@ -168,30 +220,30 @@ fetch('footer.html')
         e(this).removeAttr("data-bg-src").addClass("background-image");
     }),
     e("[data-bg-color]").length > 0 &&
-      e("[data-bg-color]").each(function () {
-        var t = e(this).attr("data-bg-color");
-        e(this).css("background-color", t), e(this).removeAttr("data-bg-color");
-      }),
+    e("[data-bg-color]").each(function () {
+      var t = e(this).attr("data-bg-color");
+      e(this).css("background-color", t), e(this).removeAttr("data-bg-color");
+    }),
     e("[data-theme-color]").length > 0 &&
-      e("[data-theme-color]").each(function () {
-        var t = e(this).attr("data-theme-color");
-        e(this).get(0).style.setProperty("--theme-color", t),
-          e(this).removeAttr("data-theme-color");
-      }),
+    e("[data-theme-color]").each(function () {
+      var t = e(this).attr("data-theme-color");
+      e(this).get(0).style.setProperty("--theme-color", t),
+        e(this).removeAttr("data-theme-color");
+    }),
     e("[data-border]").each(function () {
       var t = e(this).data("border");
       e(this).css("--th-border-color", t);
     }),
     e("[data-mask-src]").length > 0 &&
-      e("[data-mask-src]").each(function () {
-        var t = e(this).attr("data-mask-src");
-        e(this).css({
-          "mask-image": "url(" + t + ")",
-          "-webkit-mask-image": "url(" + t + ")",
-        }),
-          e(this).addClass("bg-mask"),
-          e(this).removeAttr("data-mask-src");
+    e("[data-mask-src]").each(function () {
+      var t = e(this).attr("data-mask-src");
+      e(this).css({
+        "mask-image": "url(" + t + ")",
+        "-webkit-mask-image": "url(" + t + ")",
       }),
+        e(this).addClass("bg-mask"),
+        e(this).removeAttr("data-mask-src");
+    }),
     e(".th-slider").each(function () {
       var t = e(this),
         a = e(this).data("slider-options") || {},
@@ -247,10 +299,10 @@ fetch('footer.html')
           a = e.slides.length;
         i.html(
           '<span class="current-slide">' +
-            (t < 10 ? "0" + t : t) +
-            '</span> <span class="divider">/</span> <span class="total-slides">' +
-            (a < 10 ? "0" + a : a) +
-            "</span>"
+          (t < 10 ? "0" + t : t) +
+          '</span> <span class="divider">/</span> <span class="total-slides">' +
+          (a < 10 ? "0" + a : a) +
+          "</span>"
         );
       }
       function u(e) {
@@ -355,9 +407,8 @@ fetch('footer.html')
                 let i = Math.abs(o) * e - s.width * e;
                 i < 0 && (i = 0);
                 const r = o < 0 ? "left top" : "right top";
-                (a.style.transform = `translate(0, ${i}px) rotate(${
-                  -o * t
-                }deg)`),
+                (a.style.transform = `translate(0, ${i}px) rotate(${-o * t
+                  }deg)`),
                   (a.style.transformOrigin = r);
               });
           })();
@@ -377,14 +428,14 @@ fetch('footer.html')
             var n = e(this);
             if (
               (n.addClass("active").siblings().removeClass("active"),
-              l(n),
-              a.sliderTab)
+                l(n),
+                a.sliderTab)
             ) {
               var s = n.index();
               i.slideTo(s);
             }
           }),
-          a.sliderTab)
+            a.sliderTab)
         ) {
           i.on("slideChange", function () {
             var e = i.realIndex,
@@ -407,10 +458,10 @@ fetch('footer.html')
       });
     }),
     e(".project-number-pagination").length &&
-      e(".project-number-pagination").activateSliderThumbs({
-        sliderTab: !0,
-        tabButton: ".tab-btn",
-      });
+    e(".project-number-pagination").activateSliderThumbs({
+      sliderTab: !0,
+      tabButton: ".tab-btn",
+    });
   var r,
     c,
     l,
@@ -436,31 +487,31 @@ fetch('footer.html')
       }
       n(h),
         e(p).val() &&
-        e(p)
-          .val()
-          .match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)
+          e(p)
+            .val()
+            .match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)
           ? (e(p).removeClass(u), (a = !0))
           : (e(p).addClass(u), (a = !1));
       return a;
     })()),
       t &&
-        jQuery
-          .ajax({ url: e(d).attr("action"), data: a, type: "POST" })
-          .done(function (t) {
-            f.removeClass("error"),
-              f.addClass("success"),
-              f.text(t),
-              e(d + ' input:not([type="submit"]),' + d + " textarea").val("");
-          })
-          .fail(function (e) {
-            f.removeClass("success"),
-              f.addClass("error"),
-              "" !== e.responseText
-                ? f.html(e.responseText)
-                : f.html(
-                    "Oops! An error occured and your message could not be sent."
-                  );
-          });
+      jQuery
+        .ajax({ url: e(d).attr("action"), data: a, type: "POST" })
+        .done(function (t) {
+          f.removeClass("error"),
+            f.addClass("success"),
+            f.text(t),
+            e(d + ' input:not([type="submit"]),' + d + " textarea").val("");
+        })
+        .fail(function (e) {
+          f.removeClass("success"),
+            f.addClass("error"),
+            "" !== e.responseText
+              ? f.html(e.responseText)
+              : f.html(
+                "Oops! An error occured and your message could not be sent."
+              );
+        });
   }
   function g(t, a, n, s) {
     e(a).on("click", function (a) {
@@ -530,7 +581,7 @@ fetch('footer.html')
             ? (e(o).css("padding-bottom", r + n + "px"),
               c.css("margin-top", "-" + n + "px"))
             : "bottom-half" === s &&
-              (e(o).css("padding-top", i + n + "px"),
+            (e(o).css("padding-top", i + n + "px"),
               c.css("margin-bottom", "-" + n + "px"));
       });
     });
@@ -667,10 +718,10 @@ fetch('footer.html')
         t.attr("class") && n.attr("class", t.attr("class")),
         t.attr("style") && n.attr("style", t.attr("style")),
         t.attr("width") &&
-          (n.attr("width", t.attr("width")),
+        (n.attr("width", t.attr("width")),
           t.attr("height") || n.removeAttr("height")),
         t.attr("height") &&
-          (n.attr("height", t.attr("height")),
+        (n.attr("height", t.attr("height")),
           t.attr("width") || n.removeAttr("width")),
         n.insertAfter(t),
         t.trigger("svgInlined", n[0]),
@@ -684,7 +735,7 @@ fetch('footer.html')
       (e(o).each(function (e, t) {
         i += '<span class="' + n + (e + 1) + '">' + t + "</span>" + s;
       }),
-      t.empty().append(i));
+        t.empty().append(i));
   }
   (e.fn.inlineSvg = function () {
     return this.each(w), this;
@@ -773,11 +824,11 @@ fetch('footer.html')
       return t && k[t]
         ? k[t].apply(this, [].slice.call(arguments, 1))
         : "letters" !== t && t
-        ? (e.error("Method " + t + " does not exist on jQuery.lettering"), this)
-        : k.init.apply(this, [].slice.call(arguments, 0));
+          ? (e.error("Method " + t + " does not exist on jQuery.lettering"), this)
+          : k.init.apply(this, [].slice.call(arguments, 0));
     }),
-    e(".circle-title-anime").lettering(),
-    e(".cursor-follower").length > 0)
+      e(".circle-title-anime").lettering(),
+      e(".cursor-follower").length > 0)
   ) {
     var x = e(".cursor-follower"),
       T = 0,
@@ -893,21 +944,21 @@ fetch('footer.html')
           });
       });
   }
-//   window.addEventListener(
-//     "contextmenu",
-//     function (e) {
-//       e.preventDefault();
-//     },
-//     !1
-//   ),
-//     (document.onkeydown = function (e) {
-//       return (
-//         123 != event.keyCode &&
-//         (!e.ctrlKey || !e.shiftKey || e.keyCode != "I".charCodeAt(0)) &&
-//         (!e.ctrlKey || !e.shiftKey || e.keyCode != "C".charCodeAt(0)) &&
-//         (!e.ctrlKey || !e.shiftKey || e.keyCode != "J".charCodeAt(0)) &&
-//         (!e.ctrlKey || e.keyCode != "U".charCodeAt(0)) &&
-//         void 0
-//       );
-//     });
+  //   window.addEventListener(
+  //     "contextmenu",
+  //     function (e) {
+  //       e.preventDefault();
+  //     },
+  //     !1
+  //   ),
+  //     (document.onkeydown = function (e) {
+  //       return (
+  //         123 != event.keyCode &&
+  //         (!e.ctrlKey || !e.shiftKey || e.keyCode != "I".charCodeAt(0)) &&
+  //         (!e.ctrlKey || !e.shiftKey || e.keyCode != "C".charCodeAt(0)) &&
+  //         (!e.ctrlKey || !e.shiftKey || e.keyCode != "J".charCodeAt(0)) &&
+  //         (!e.ctrlKey || e.keyCode != "U".charCodeAt(0)) &&
+  //         void 0
+  //       );
+  //     });
 })(jQuery);
