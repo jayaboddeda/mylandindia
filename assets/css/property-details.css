@@ -133,15 +133,31 @@ body {
 
 /* Thumbnails */
 .thumb-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    overflow-x: auto;
     gap: 10px;
     margin-top: 10px;
+    padding-bottom: 5px;
+    /* Space for scrollbar */
+    scrollbar-width: thin;
+}
+
+.thumb-grid::-webkit-scrollbar {
+    height: 6px;
+}
+
+.thumb-grid::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
 }
 
 .thumb-img {
     height: 100px;
-    width: 100%;
+    min-width: 140px;
+    /* Fixed width for flex items */
+    width: 140px;
+    flex-shrink: 0;
+    /* Prevent shrinking */
     object-fit: cover;
     border-radius: 10px;
     cursor: pointer;
@@ -149,6 +165,8 @@ body {
     transition: 0.3s;
     border: 2px solid transparent;
 }
+
+
 
 .thumb-img:hover,
 .thumb-img.active-thumb {
